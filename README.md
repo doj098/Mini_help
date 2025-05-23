@@ -1,9 +1,13 @@
 # Mini_help
+https://jodies.de/ipcalc?host
 
-sysahelper.ru
+[sysahelper.ru](https://sysahelper.ru/course/view.php?id=38)
 
-demo2025
+https://sysahelper.ru/course/view.php?id=35
 
+[demo2025](https://github.com/damh66/demo2025/tree/main/module1)
+
+https://github.com/abdurrah1m/DEMO2025
 # 1.Проверить подключения согласно схеме.
 
 # 2.Настроить Сеть и имена (EcoRouter, nmtui и без nmtui)
