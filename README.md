@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/29e06dbf-7066-421d-bded-ea7c7508ac61)# Mini_help
+# Mini_help
 
 sysahelper.ru
 
@@ -225,4 +225,5 @@ timedatectl set-timezone Регион/Страна
 
 # EXTRA Догадки (не решены)
 # 8. доступ к cam1,2 и print через Admin
+https://www.altlinux.org/Mediamtx
 # 9. достпу к print через Cli
