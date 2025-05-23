@@ -13,8 +13,9 @@ https://github.com/abdurrah1m/DEMO2025
 # 2.Настроить Сеть и имена (EcoRouter, nmtui и без nmtui)
 
 # Без nmtui (придётся несколькораз создавать):
+ip link
 1. mkdir /etc/net/ifaces/ens??/options
-2. cat <<EOF > /etc/net/ifaces/ens20/options
+2. cat <<EOF > /etc/net/ifaces/ens??/options
      TYPE=eth
      BOOTPROTO=static
    EOF
