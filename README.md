@@ -179,6 +179,34 @@ ip route 0.0.0.0 0.0.0.0 *адрес шлюза*
 
 # 5. DHCP и DNS на R1
 https://github.com/damh66/demo2025/tree/main/module1#%D0%B7%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5-8
+
+Создаем пул для DHCP-сервера:
+
+    ip pool hq-cli 192.168.101.14-192.168.101.14
+
+
+Настраиваем сам DHCP-сервер:
+
+    dhcp-server 1
+    pool hq-cli 1
+    mask 24
+    gateway 192.168.101.1
+    dns 192.168.101.254?
+    domain-name au-team.irpo
+
+    pool hq-cli 1 - привязка пула
+    mask 28 - указание маски для выдаваемых адресов из пула
+    gateway 192.168.200.1 - указание шлюза по умолчанию для клиентов
+    dns 192.168.100.62 - указание DNS-сервера для клиентов
+    domain-name au-team.irpo - указание DNS-суффикса для офиса HQ
+
+
+Привязываем DHCP-сервер к интерфейсу (смотрящий в сторону CLI):
+
+interface int2
+  dhcp-server 1
+
+
 # 6. OSPF R1 И R2 
 https://github.com/damh66/demo2025/tree/main/module1#%D0%B7%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5-7
 # 7. время
