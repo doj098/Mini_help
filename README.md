@@ -219,7 +219,8 @@ Alt:
 Открыть настройки и время выбрать нужный регион.
 
 или 
-timedatectl set-timezone Регион/Страна
+
+    timedatectl set-timezone Регион/Страна
 
 # EXTRA Догадки (не решены)
 # 8. доступ к cam1,2 и print через Admin
