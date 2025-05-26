@@ -75,8 +75,7 @@ https://github.com/abdurrah1m/DEMO2025
   
 Настраиваем порт:
 
-port ge1
-
+    port ge1
     service-instance ge1/int1
     encapsulation dot1q 100
     rewrite pop 1
@@ -86,12 +85,10 @@ port ge1
     
 Объединяем порт с интерфейсами:
 
-interface int1
-
+    interface int1
     connect port ge1 service-instance ge1/int1
     
-interface int2
-
+    interface int2
     connect port ge1 service-instance ge1/int2
 
 Адресация на BR-RTR (без разделения на VLAN) настраивается аналогично примеру выше
@@ -100,7 +97,7 @@ interface int2
 
 Прописываем следующее:
 
-ip route 0.0.0.0 0.0.0.0 *адрес шлюза*
+    ip route 0.0.0.0 0.0.0.0 *адрес шлюза*
 
 -----Cam1-----
 
@@ -215,7 +212,7 @@ ip route 0.0.0.0 0.0.0.0 *адрес шлюза*
     hq-rtr(config)#interface tunnel.0
     hq-rtr(config-if-tunnel)#description "GRE-to-BR"
     hq-rtr(config-if-tunnel)#ip address 10.10.10.1/30
-    hq-rtr(config-if-tunnel)#ip tunnel 172.16.4.14 172.16.5.14 mode gre
+    hq-rtr(config-if-tunnel)#ip tunnel ?172.16.4.14? ?172.16.5.14? mode gre
     2025-05-03 07:58:58      INFO      Interface tunnel.0 changed state to up
     hq-rtr(config-if-tunnel)#end
     hq-rtr#write memory
@@ -245,7 +242,7 @@ https://github.com/damh66/demo2025/tree/main/module1#%D0%B7%D0%B0%D0%B4%D0%B0%D0
     pool hq-cli 1
     mask 24
     gateway 192.168.101.1
-    dns 192.168.101.254?
+    dns ?192.168.101.254?
     domain-name au-team.irpo
 
     pool hq-cli 1 - привязка пула
