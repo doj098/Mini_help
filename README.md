@@ -40,11 +40,14 @@ https://github.com/abdurrah1m/DEMO2025
 # Mntui:
 Выбрать подключение посмотреть Mac address настроить ip, mask, шлюз сохронить выйти.
 # EcoRouter:
+
+-----Internet-----
+
 Создаем логический интерфейс:
 
     interface int0
-    description "to isp"
-    ip address 172.16.4.2/28
+    description "to INT"
+    ip address 172.16.4.2/28?
   
 Настраиваем физический порт:
 
@@ -57,31 +60,28 @@ https://github.com/abdurrah1m/DEMO2025
     interface int0
       connect port ge0 service-instance ge0/int0
 
+-----Admin-Cli-----
+
 Настраиваем интерфейсы на HQ-RTR, которые смотрят в сторону HQ-SRV и HQ-CLI (с разделением на VLAN):
 
 Создаем два интерфейса:
 
     interface int1
-      description "to hq-srv"
-      ip address 192.168.100.1/26
+      description "to Admin"
+      ip address 192.168.101.254/26
       interface int2
-      description "to hq-cli"
-      ip address 192.168.200.1/28
+      description "to Cli"
+      ip address 192.168.101.1/28
   
 Настраиваем порт:
 
 port ge1
 
-  service-instance ge1/int1
-  
+    service-instance ge1/int1
     encapsulation dot1q 100
-    
     rewrite pop 1
-    
-  service-instance ge1/int2
-  
+    service-instance ge1/int2
     encapsulation dot1q 200
-    
     rewrite pop 1
     
 Объединяем порт с интерфейсами:
@@ -97,9 +97,63 @@ interface int2
 Адресация на BR-RTR (без разделения на VLAN) настраивается аналогично примеру выше
 
 Добавление маршрута по умолчанию в EcoRouter
+
 Прописываем следующее:
 
 ip route 0.0.0.0 0.0.0.0 *адрес шлюза*
+
+-----Cam1-----
+
+    interface int3
+    description "to Cam1"
+    ip address 192.168.120.1/24
+
+       port ge2
+    service-instance ge2/int3
+    encapsulation untagged
+    
+    interface int1
+    connect port ge1 service-instance ge1/int1
+
+-----Cam2_R2-----
+
+    interface int2
+    description "to Cam2"
+    ip address 192.168.110.1/24
+
+       port ge2
+    service-instance ge2/int2
+    encapsulation untagged
+    
+    interface int2
+    connect port ge2 service-instance ge2/int2
+
+-----Print_R2-----
+
+    interface int1
+    description "to Print"
+    ip address 192.168.102.1/24
+
+       port ge1
+    service-instance ge1/int1
+    encapsulation untagged
+    
+    interface int1
+    connect port ge1 service-instance ge1/int1
+
+ -----R1_R2 (туда сюда но не точно)-----
+
+    interface int0
+    description "to R1/R2"
+    ip address 10.10.10.0/30
+
+       port ge0
+    service-instance ge0/int0
+    encapsulation untagged
+    
+    interface int0
+    connect port ge0 service-instance ge0/int0
+
 # Настройка именов
 # EcoRouter: 
 
