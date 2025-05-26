@@ -257,12 +257,26 @@ https://github.com/damh66/demo2025/tree/main/module1#%D0%B7%D0%B0%D0%B4%D0%B0%D0
 
 Привязываем DHCP-сервер к интерфейсу (смотрящий в сторону CLI):
 
-interface int2
-  dhcp-server 1
+    interface int2
+      dhcp-server 1
 
 
 # 6. OSPF R1 И R2 
 https://github.com/damh66/demo2025/tree/main/module1#%D0%B7%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5-7
+
+Создаем процесс OSPF, указываем идентификатор маршрутизатора, объявляем сети и указываем пассивные интерфейсы:
+
+    router ospf 1
+    router-id 1.1.1.1
+    network 10.10.10.0/30 area 0
+    network 192.168.101.0/24 area 0
+    network 192.168.120.0/24 area 0
+    passive-interface default
+    no passive-interface tunnel.0
+
+
+Маршрутизация OSPF на BR-RTR настраивается аналогично примеру выше
+
 # 7. время
 на Eco:
 
