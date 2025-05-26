@@ -263,14 +263,31 @@ https://github.com/damh66/demo2025/tree/main/module1#%D0%B7%D0%B0%D0%B4%D0%B0%D0
 
 Создаем процесс OSPF, указываем идентификатор маршрутизатора, объявляем сети и указываем пассивные интерфейсы:
 
-    router ospf 1
-    router-id 1.1.1.1
-    network 10.10.10.0/30 area 0
-    network 192.168.101.0/24 area 0
-    network 192.168.120.0/24 area 0
-    passive-interface default
-    no passive-interface tunnel.0
+    hq-rtr>enable
+    hq-rtr#configure terminal 
+    Enter configuration commands, one per line.  End with CNTL/Z.
+    hq-rtr(config)#router ospf 1
+    hq-rtr(config-router)#ospf router-id 10.10.10.1
+    hq-rtr(config-router)#passive-interface default 
+    hq-rtr(config-router)#no passive-interface tunnel.0 
+    hq-rtr(config-router)#network 10.10.10.0/30 area 0
+    hq-rtr(config-router)#network 192.168.101.0/24 area 0
+    hq-rtr(config-router)#network 192.168.120.0/24 area 0
+    hq-rtr(config-router)#network ?192.168.100.80/24? area 0 (DHCP)
+    hq-rtr(config-router)#exit
+    hq-rtr(config)#write memory
+    Building configuration...
+    hq-rtr(config)#
 
+    Обеспечиваем защиту протокола маршрутизации посредством парольной защиты:
+
+    hq-rtr(config)#interface tunnel.0 
+    hq-rtr(config-if-tunnel)#ip ospf authentication message-digest
+    hq-rtr(config-if-tunnel)#ip ospf message-digest-key 1 md5 P@ssw0rd
+    hq-rtr(config-if-tunnel)#exit
+    hq-rtr(config)#write memory
+    Building configuration...
+    hq-rtr(config)#
 
 Маршрутизация OSPF на BR-RTR настраивается аналогично примеру выше
 
