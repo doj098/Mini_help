@@ -117,7 +117,7 @@ https://github.com/abdurrah1m/DEMO2025
     interface int2
     description "to Cam2"
     ip address 192.168.110.1/24
-
+    
        port ge2
     service-instance ge2/int2
     encapsulation untagged
@@ -229,12 +229,41 @@ https://github.com/abdurrah1m/DEMO2025
     show ip interface brief | include tunnel
 
 # 5. DHCP и DNS на R1
+
+Настройка динамической трансляции адресов
+
+    hq-rtr>enable
+    hq-rtr#configure terminal
+    Enter configuration commands, one per line.  End with CNTL/Z.
+    hq-rtr(config)#interface INT 
+    hq-rtr(config-if)#ip nat outside 
+    hq-rtr(config-if)#exit
+    hq-rtr(config)#
+
+    hq-rtr(config)#interface vl100
+    hq-rtr(config-if)#ip nat inside 
+    hq-rtr(config-if)#exit
+    hq-rtr(config)#interface vl200
+    hq-rtr(config-if)#ip nat inside 
+    hq-rtr(config-if)#exit
+    hq-rtr(config)#interface vl999 
+    hq-rtr(config-if)#ip nat inside 
+    hq-rtr(config-if)#exit
+    hq-rtr(config)#
+
+    hq-rtr(config)#ip nat pool R1 192.168.101.1-192.168.101.254
+
+    hq-rtr(config)#ip nat source dynamic inside-to-outside pool HQ overload interface isp 
+    hq-rtr(config)#write memory
+    Building configuration...
+
+    hq-rtr(config)#
+
 https://github.com/damh66/demo2025/tree/main/module1#%D0%B7%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5-8
 
 Создаем пул для DHCP-сервера:
 
     ip pool hq-cli 192.168.101.14-192.168.101.14
-
 
 Настраиваем сам DHCP-сервер:
 
