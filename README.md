@@ -1,4 +1,7 @@
 # Mini_help
+
+https://github.com/abdurrah1m/DEMO2025
+
 https://jodies.de/ipcalc?host
 
 [sysahelper.ru](https://sysahelper.ru/course/view.php?id=38)
