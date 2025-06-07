@@ -215,37 +215,37 @@ R2
     ИЛИ
     через Панель Управления
 # 5. Tunnel? R1 <=> R2 50/50
-R1
+R1, (Cli<=>Print, Admin<=>Cam2 (idea))
 
-    mkdir /etc/net/ifaces/gre1
-    vim /etc/net/ifaces/gre1/options
+    mkdir /etc/net/ifaces/gre1,2,3
+    vim /etc/net/ifaces/gre1,2,3/options
     TYPE=iptun
     TUNTYPE=gre
-    TUNLOCAL=?10.10.10.2?
-    TUNREMOTE=?10.10.10.1?
+    TUNLOCAL=?10.10.10.2? , 10.10.10.6 , 10.10.10.10
+    TUNREMOTE=?10.10.10.1? , 10.10.10.5 , 10.10.10.9
     TUNTTL=8
     HOST=??
     TUNOPTIONS='ttl 64'
 .
 
-    echo "10.10.10.2/30" > /etc/net/ifaces/gre1/ipv4address
+    echo "10.10.10.2/30 , 192.168.101.1/24 , 192.168.101.254/24" > /etc/net/ifaces/gre1,2,3/ipv4address
     systemctl restart network
     modprobe gre
     echo "gre" | tee -a /etc/modules
 R2
 
-    mkdir /etc/net/ifaces/gre1
-    vim /etc/net/ifaces/gre1/options
+    mkdir /etc/net/ifaces/gre1,2,3
+    vim /etc/net/ifaces/gre1,2,3/options
     TYPE=iptun
     TUNTYPE=gre
-    TUNLOCAL=?10.10.10.1?
-    TUNREMOTE=?10.10.10.2?
+    TUNLOCAL=?10.10.10.1?  , 10.10.10.5 , 10.10.10.9
+    TUNREMOTE=?10.10.10.2? , 10.10.10.6 , 10.10.10.10
     TUNTTL=8
     HOST=??
     TUNOPTIONS='ttl 64'
 .
 
-    echo "10.10.10.1/30" > /etc/net/ifaces/gre1/ipv4address
+    echo "10.10.10.1/30 , 192.168.102.1/24 , 192.168.110.1/24" > /etc/net/ifaces/gre1,2,3/ipv4address
     systemctl restart network
     modprobe gre
     echo "gre" | tee -a /etc/modules
