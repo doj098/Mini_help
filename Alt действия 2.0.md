@@ -117,7 +117,7 @@ CLI, Internet?
 
     apt-get install -y dhcp-server
     vim /etc/sysconfig/dhcpd
-     DHCPDRAGS='vlan200, ???'
+     DHCPDRAGS='vlan200, ?ge0(alt te0)?'
     cp /etc/dhcp/dhcpd.conf.example /etc/dhcp/dhcpd.conf
     vim /etc/dhcp/dhcpd.conf
 .
@@ -125,7 +125,7 @@ CLI, Internet?
     Пример:
     dhcpd. conf
     option domain-name
-    "au-team.irpo";
+    "?au-team.irpo?";
     option domain-name-servers 192.168.101.254;
     default-lease-time 6000;
     max-lease-time 72000;
@@ -214,7 +214,7 @@ R2
     sudo -i
     ИЛИ
     через Панель Управления
-# 5. Tunnel? R1 <=> R2 50/50
+# 5. Tunnel? R1 <=> R2  (idea 07.06.25 2-3 tunnel) 50/50 
 R1, (Cli<=>Print, Admin<=>Cam2 (idea))
 
     mkdir /etc/net/ifaces/gre1,2,3
@@ -232,7 +232,7 @@ R1, (Cli<=>Print, Admin<=>Cam2 (idea))
     systemctl restart network
     modprobe gre
     echo "gre" | tee -a /etc/modules
-R2
+R2 (Print<=>Cli, Cam2<=>Admin (idea))
 
     mkdir /etc/net/ifaces/gre1,2,3
     vim /etc/net/ifaces/gre1,2,3/options
