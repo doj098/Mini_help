@@ -22,6 +22,9 @@ R1
       DISABLED=no
       NM_CONTROLLED=no
       BOOTPROTO=dhcp
+      DISABLED=no
+      NM_CONTROLLED=no
+      SYSTEMD_CONTROLLED=no
     EOF
 Admin
 
