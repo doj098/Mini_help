@@ -416,6 +416,6 @@ Alt Linux:
     http://192.168.120.25:554/Cam1
     http://192.168.110.25:554/Cam2
 # 7. time? 80%
-    timedatectl set-timezone Регион/Страна (или панель упрваления)
+    timedatectl set-timezone Asia/Krasnoyarsk (или панель упрваления)
 
 13.06.25 (Доп tunnel + настройки сети)
