@@ -274,6 +274,12 @@ R1
     write memory
 R2
 
+    vim /etc/net/sysctl.conf
+    i
+     net.ipv4.ip_forward = 1
+    ESC, :wq
+.
+
     vtysh
     configure terminal 
     router ospf 
