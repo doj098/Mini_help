@@ -9,7 +9,9 @@
     hostnamectl set-hostname Admin.  ?au.team.irpo?;  exec bash
 
 # 2. Настройка Сети
-R1    
+R1 
+
+Редактор vim, mc (i редактировать, :wq выход)   
 
     ip link
     apt-get update && apt-get install -y openvswitch
@@ -89,8 +91,8 @@ Cams1
     echo "default via 192.168.120.25" > /etc/net/ifaces/ge3/ipv4route
 R2 <=> R1 (50/50)
 
-    mkdir /etc/net/ifaces/te4/ge4/Router2 (R2)
-    cat <<EOF > /etc/net/ifaces/ge3/options
+    mkdir /etc/net/ifaces/ te4/ge4/Router2 (R2)
+    cat <<EOF > /etc/net/ifaces/ te4/ge4/Router2 /options
      NM_CONTROLLED=no
      DISABLED=no
      TYPE=eth
@@ -103,8 +105,8 @@ R2 <=> R1 (50/50)
      CONFIG_IPV6=no
      ONBOOT=yes
     EOF
-    echo "10.10.10.1/30" > /etc/net/ifaces/ge3/ipv4address
-    echo "default via 10.10.10.2" > /etc/net/ifaces/ge3/ipv4route
+    echo "10.10.10.1/30" > /etc/net/ifaces/ te4/ge4/Router2 /ipv4address
+    echo "default via 10.10.10.2" > /etc/net/ifaces/ te4/ge4/Router2 /ipv4route
 .
 
     mkdir /etc/net/ifaces/R1-SW
@@ -293,30 +295,34 @@ R1, (Cli<=>Print, Admin<=>Cam2 (idea))
 
     mkdir /etc/net/ifaces/gre1,2,3
     vim /etc/net/ifaces/gre1,2,3/options
-    TYPE=iptun
+    TUNLOCAL=?10.10.10.2? , 10.10.10.6 , 10.10.10.10 
+    TUNREMOTE=?10.10.10.1?  , 10.10.10.5 , 10.10.10.9
     TUNTYPE=gre
-    TUNLOCAL=?10.10.10.2? , 10.10.10.6 , 10.10.10.10
-    TUNREMOTE=?10.10.10.1? , 10.10.10.5 , 10.10.10.9
-    TUNTTL=8
-    HOST=??
+    TYPE=iptun
+    TUNTTL=64
+    TUNMTU=1476
+    HOST= te4/ge4/Router2 , vlan200/(gr2/te2)/?R1-SW? , vlan100/(gr1/te1)/?R1-SW?
     TUNOPTIONS='ttl 64'
+    DISABLE=no
 .
 
     echo "10.10.10.2/30 , 192.168.101.1/24 , 192.168.101.254/24" > /etc/net/ifaces/gre1,2,3/ipv4address
     systemctl restart network
     modprobe gre
     echo "gre" | tee -a /etc/modules
-R2 (Print<=>Cli, Cam2<=>Admin (idea))
+R2, (Print<=>Cli, Cam2<=>Admin (idea))
 
     mkdir /etc/net/ifaces/gre1,2,3
     vim /etc/net/ifaces/gre1,2,3/options
-    TYPE=iptun
-    TUNTYPE=gre
     TUNLOCAL=?10.10.10.1?  , 10.10.10.5 , 10.10.10.9
     TUNREMOTE=?10.10.10.2? , 10.10.10.6 , 10.10.10.10
-    TUNTTL=8
-    HOST=??
+    TUNTYPE=gre
+    TYPE=iptun
+    TUNTTL=64
+    TUNMTU=1476
+    HOST= te4/ge4/Router2 , te1/ge1/Printer , Cam2/te2/ge2
     TUNOPTIONS='ttl 64'
+    DISABLE=no
 .
 
     echo "10.10.10.1/30 , 192.168.102.1/24 , 192.168.110.1/24" > /etc/net/ifaces/gre1,2,3/ipv4address
@@ -389,3 +395,5 @@ Alt Linux:
     http://192.168.110.25:554/Cam2
 # 7. time? 80%
     timedatectl set-timezone Регион/Страна (или панель упрваления)
+
+13.06.25 (Доп tunnel + настройки сети)
