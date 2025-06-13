@@ -91,8 +91,8 @@ Cams1
     echo "default via 192.168.120.25" > /etc/net/ifaces/ge3/ipv4route
 R2 <=> R1 (50/50)
 
-    mkdir /etc/net/ifaces/ te4/ge4/Router2 (R2)
-    cat <<EOF > /etc/net/ifaces/ te4/ge4/Router2 /options
+    mkdir /etc/net/ifaces/ (te4/ge4/Router2) (R2)
+    cat <<EOF > /etc/net/ifaces/ (te4/ge4/Router2) /options
      NM_CONTROLLED=no
      DISABLED=no
      TYPE=eth
@@ -105,8 +105,8 @@ R2 <=> R1 (50/50)
      CONFIG_IPV6=no
      ONBOOT=yes
     EOF
-    echo "10.10.10.1/30" > /etc/net/ifaces/ te4/ge4/Router2 /ipv4address
-    echo "default via 10.10.10.2" > /etc/net/ifaces/ te4/ge4/Router2 /ipv4route
+    echo "10.10.10.1/30" > /etc/net/ifaces/ (te4/ge4/Router2) /ipv4address
+    echo "default via 10.10.10.2" > /etc/net/ifaces/ (te4/ge4/Router2) /ipv4route
 .
 
     mkdir /etc/net/ifaces/R1-SW
