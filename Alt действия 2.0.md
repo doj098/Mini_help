@@ -32,13 +32,16 @@ R1
       NM_CONTROLLED=no
       CONFIG_IPV6=no
       ONBOOT=yes
-      
     EOF
-
+    vim /etc/net/ifaces/ge0 (alt te0) /resolv.conf
+     nameserver 8.8.8.8
+     search google.com
+     search ya.ru
 Admin
 
     mkdir /etc/net/ifaces/vlan100 (gr1/te1)
     cat <<EOF > /etc/net/ifaces/vlan100/options
+    или vim, mc (i редактировать, :wq выход)
       NM_CONTROLLED=no
       DISABLED=no
       TYPE=ovsport
@@ -54,10 +57,15 @@ Admin
     EOF
     echo "192.168.101.1/24" > /etc/net/ifaces/vlan100 (gr1/te1) /ipv4address
     echo "default via 192.168.101.10" > /etc/net/ifaces/vlan100 (gr1/te1) /ipv4route
+    vim /etc/net/ifaces/vlan100 (gr1/te1) /resolv.conf
+     nameserver 8.8.8.8
+     search google.com
+     search ya.ru
 Client
 
     mkdir /etc/net/ifaces/vlan200 (gr2/te2)
     cat <<EOF > /etc/net/ifaces/vlan200  (gr2/te2) /options
+    или vim, mc (i редактировать, :wq выход)
       NM_CONTROLLED=no
       DISABLED=no
       TYPE=ovsport
@@ -71,10 +79,15 @@ Client
       CONFIG_IPV6=no
       ONBOOT=yes
     EOF
+    vim /etc/net/ifaces/vlan200 (gr2/te2) /resolv.conf
+     nameserver 8.8.8.8
+     search google.com
+     search ya.ru
 Cams1
 
     mkdir /etc/net/ifaces/Cam1/te3/ge3
     cat <<EOF > /etc/net/ifaces/Cam1/options
+    или vim, mc (i редактировать, :wq выход)
      NM_CONTROLLED=no
      DISABLED=no
      TYPE=eth
@@ -89,10 +102,12 @@ Cams1
     EOF
     echo "192.168.120.1/24" > /etc/net/ifaces/ge3/ipv4address
     echo "default via 192.168.120.25" > /etc/net/ifaces/ge3/ipv4route
+    или vim, mc (i редактировать, :wq выход)
 R2 <=> R1 (50/50)
 
     mkdir /etc/net/ifaces/ (te4/ge4/Router2) (R2)
     cat <<EOF > /etc/net/ifaces/ (te4/ge4/Router2) /options
+    или vim, mc (i редактировать, :wq выход)
      NM_CONTROLLED=no
      DISABLED=no
      TYPE=eth
@@ -107,6 +122,7 @@ R2 <=> R1 (50/50)
     EOF
     echo "10.10.10.1/30" > /etc/net/ifaces/ (te4/ge4/Router2) /ipv4address
     echo "default via 10.10.10.2" > /etc/net/ifaces/ (te4/ge4/Router2) /ipv4route
+    или vim, mc (i редактировать, :wq выход)
 .
 
     mkdir /etc/net/ifaces/R1-SW
@@ -128,6 +144,7 @@ R2 <=> R1 (50/50)
     
     mkdir /etc/net/ifaces/ (te4/ge4/Router1)
     cat <<EOF > /etc/net/ifaces/ (te4/ge4/Router1)
+    или vim, mc (i редактировать, :wq выход)
      NM_CONTROLLED=no
      DISABLED=no
      TYPE=eth
@@ -142,10 +159,12 @@ R2 <=> R1 (50/50)
     EOF
     echo "10.10.10.2/30" > /etc/net/ifaces/ (te4/ge4/Router1) /ipv4address
     echo "default via 10.10.10.1" > /etc/net/ifaces/ (te4/ge4/Router1) /ipv4route
+    или vim, mc (i редактировать, :wq выход)
 Printer
   
     mkdir /etc/net/ifaces/ (te1/ge1/Printer)
     cat <<EOF > /etc/net/ifaces/ (te1/ge1/Printer)
+    или vim, mc (i редактировать, :wq выход)
      NM_CONTROLLED=no
      DISABLED=no
      TYPE=eth
@@ -160,10 +179,12 @@ Printer
     EOF
     echo "192.168.102.1/24" > /etc/net/ifaces/ (te1/ge1/Printer) /ipv4address
     echo "default via 192.168.102.10" > /etc/net/ifaces/ (te1/ge1/Printer) /ipv4route
+    или vim, mc (i редактировать, :wq выход)
 Cam2
 
     mkdir /etc/net/ifaces/ (Cam2/te2/ge2)
     cat <<EOF > /etc/net/ifaces/ (Cam2/te2/ge2)
+    или vim, mc (i редактировать, :wq выход)
      NM_CONTROLLED=no
      DISABLED=no
      TYPE=eth
@@ -178,6 +199,7 @@ Cam2
     EOF
     echo "192.168.110.1/24" > /etc/net/ifaces/ (Cam2/te2/ge2) /ipv4address
     echo "default via 192.168.110.25" > /etc/net/ifaces/ (Cam2/te2/ge2) /ipv4route
+    или vim, mc (i редактировать, :wq выход)
 # 3. Настройка DHCP, DNS?, NAT? OSPFv2?
 
 R1
@@ -214,7 +236,7 @@ CLI, Internet?
 
 NAT?
 
-    iptables –t nat –A POSTROUTING –o enp?? –j MASQUERADE
+    iptables –t nat –A POSTROUTING –o ?ge0/te0/Internet? –j MASQUERADE
     iptables-save >> /etc/sysconfig/iptables
     systemctl enable --now iptables
 .
