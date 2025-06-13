@@ -18,56 +18,93 @@ R1
 
     mkdir /etc/net/ifaces/ge0 (alt te0) (Internet)
     cat <<EOF > /etc/net/ifaces/ge0 (alt te0) (Internet)
+    или vim, mc (i редактировать, :wq выход)
+      NM_CONTROLLED=no
+      DISABLED=no
       TYPE=eth
-      DISABLED=no
-      NM_CONTROLLED=no
+      CONFIG_WIRELESS=no
       BOOTPROTO=dhcp
-      DISABLED=no
-      NM_CONTROLLED=no
+      SYSTEMD_BOOTPROTO=dhcpI?
+      CONFIG_IPV4=yes
       SYSTEMD_CONTROLLED=no
+      NM_CONTROLLED=no
+      CONFIG_IPV6=no
+      ONBOOT=yes
+      
     EOF
+
 Admin
 
-    mkdir /etc/net/ifaces/vlan100
+    mkdir /etc/net/ifaces/vlan100 (gr1/te1)
     cat <<EOF > /etc/net/ifaces/vlan100/options
+      NM_CONTROLLED=no
+      DISABLED=no
       TYPE=ovsport
       BRIDGE=R1-SW
       VID=100
       BOOTPROTO=static
+      SYSTEMD_BOOTPROTO=static
       CONFIG_IPV4=yes
+      SYSTEMD_CONTROLLED=no
+      NM_CONTROLLED=no
+      CONFIG_IPV6=no
+      ONBOOT=yes
     EOF
-    echo "192.168.101.10/24" > /etc/net/ifaces/vlan100/ipv4address
+    echo "192.168.101.1/24" > /etc/net/ifaces/vlan100 (gr1/te1) /ipv4address
+    echo "default via 192.168.101.10" > /etc/net/ifaces/vlan100 (gr1/te1) /ipv4route
 Client
 
-    mkdir /etc/net/ifaces/vlan200
-    cat <<EOF > /etc/net/ifaces/vlan200/options
+    mkdir /etc/net/ifaces/vlan200 (gr2/te2)
+    cat <<EOF > /etc/net/ifaces/vlan200  (gr2/te2) /options
+      NM_CONTROLLED=no
+      DISABLED=no
       TYPE=ovsport
       BRIDGE=R1-SW
       VID=200
       BOOTPROTO=dhcp
+      SYSTEMD_BOOTPROTO=dhcpC?
       CONFIG_IPV4=yes
+      SYSTEMD_CONTROLLED=no
+      NM_CONTROLLED=no
+      CONFIG_IPV6=no
+      ONBOOT=yes
     EOF
-.
+Cams1
 
-    Cams1
-    mkdir /etc/net/ifaces/Cam1/te2/ge2
+    mkdir /etc/net/ifaces/Cam1/te3/ge3
     cat <<EOF > /etc/net/ifaces/Cam1/options
+     NM_CONTROLLED=no
+     DISABLED=no
      TYPE=eth
      CONFIG_WIRELESS=no
      BOOTPROTO=static
+     SYSTEMD_BOOTPROTO=static
      CONFIG_IPV4=yes
+     SYSTEMD_CONTROLLED=no
+     NM_CONTROLLED=no
+     CONFIG_IPV6=no
+     ONBOOT=yes
     EOF
-    echo "192.168.120.1/24" > /etc/net/ifaces/ge2/ipv4address
+    echo "192.168.120.1/24" > /etc/net/ifaces/ge3/ipv4address
+    echo "default via 192.168.120.25" > /etc/net/ifaces/ge3/ipv4route
 R2 <=> R1 (50/50)
 
-    mkdir /etc/net/ifaces/te3/ge3/Router2 (R2)
+    mkdir /etc/net/ifaces/te4/ge4/Router2 (R2)
     cat <<EOF > /etc/net/ifaces/ge3/options
+     NM_CONTROLLED=no
+     DISABLED=no
      TYPE=eth
      CONFIG_WIRELESS=no
      BOOTPROTO=static
+     SYSTEMD_BOOTPROTO=static
      CONFIG_IPV4=yes
+     SYSTEMD_CONTROLLED=no
+     NM_CONTROLLED=no
+     CONFIG_IPV6=no
+     ONBOOT=yes
     EOF
     echo "10.10.10.1/30" > /etc/net/ifaces/ge3/ipv4address
+    echo "default via 10.10.10.2" > /etc/net/ifaces/ge3/ipv4route
 .
 
     mkdir /etc/net/ifaces/R1-SW
@@ -87,31 +124,58 @@ R2
     ip -c a
 R2 <=> R1 (50/50)
     
-    mkdir /etc/net/ifaces/ (te3/ge3/Router1)
-    cat <<EOF > /etc/net/ifaces/ (te3/ge3/Router1)
-      TYPE=eth
-      DISABLED=no
-      BOOTPROTO=static
+    mkdir /etc/net/ifaces/ (te4/ge4/Router1)
+    cat <<EOF > /etc/net/ifaces/ (te4/ge4/Router1)
+     NM_CONTROLLED=no
+     DISABLED=no
+     TYPE=eth
+     CONFIG_WIRELESS=no
+     BOOTPROTO=static
+     SYSTEMD_BOOTPROTO=static
+     CONFIG_IPV4=yes
+     SYSTEMD_CONTROLLED=no
+     NM_CONTROLLED=no
+     CONFIG_IPV6=no
+     ONBOOT=yes
     EOF
-    echo "10.10.10.2/30" > /etc/net/ifaces/ (te3/ge3/Router1) /ipv4address
+    echo "10.10.10.2/30" > /etc/net/ifaces/ (te4/ge4/Router1) /ipv4address
+    echo "default via 10.10.10.1" > /etc/net/ifaces/ (te4/ge4/Router1) /ipv4route
 Printer
   
     mkdir /etc/net/ifaces/ (te1/ge1/Printer)
     cat <<EOF > /etc/net/ifaces/ (te1/ge1/Printer)
-      TYPE=eth
-      DISABLED=no
-      BOOTPROTO=static
+     NM_CONTROLLED=no
+     DISABLED=no
+     TYPE=eth
+     CONFIG_WIRELESS=no
+     BOOTPROTO=static
+     SYSTEMD_BOOTPROTO=static
+     CONFIG_IPV4=yes
+     SYSTEMD_CONTROLLED=no
+     NM_CONTROLLED=no
+     CONFIG_IPV6=no
+     ONBOOT=yes
     EOF
     echo "192.168.102.1/24" > /etc/net/ifaces/ (te1/ge1/Printer) /ipv4address
+    echo "default via 192.168.102.10" > /etc/net/ifaces/ (te1/ge1/Printer) /ipv4route
 Cam2
 
     mkdir /etc/net/ifaces/ (Cam2/te2/ge2)
     cat <<EOF > /etc/net/ifaces/ (Cam2/te2/ge2)
-      TYPE=eth
-      DISABLED=no
-      BOOTPROTO=static
+     NM_CONTROLLED=no
+     DISABLED=no
+     TYPE=eth
+     CONFIG_WIRELESS=no
+     BOOTPROTO=static
+     SYSTEMD_BOOTPROTO=static
+     CONFIG_IPV4=yes
+     SYSTEMD_CONTROLLED=no
+     NM_CONTROLLED=no
+     CONFIG_IPV6=no
+     ONBOOT=yes
     EOF
     echo "192.168.110.1/24" > /etc/net/ifaces/ (Cam2/te2/ge2) /ipv4address
+    echo "default via 192.168.110.25" > /etc/net/ifaces/ (Cam2/te2/ge2) /ipv4route
 # 3. Настройка DHCP, DNS?, NAT? OSPFv2?
 
 R1
@@ -119,14 +183,14 @@ R1
 CLI, Internet?
 
     apt-get install -y dhcp-server
-    vim /etc/sysconfig/dhcpd
+    vim /etc/sysconfig/dhcpC
      DHCPDRAGS='vlan200, ?ge0(alt te0)?'
-    cp /etc/dhcp/dhcpd.conf.example /etc/dhcp/dhcpd.conf
-    vim /etc/dhcp/dhcpd.conf
+    cp /etc/dhcp/dhcpd.conf.example /etc/dhcp/dhcpC.conf
+    vim /etc/dhcp/dhcpC.conf
 .
 
     Пример:
-    dhcpd. conf
+    dhcpC.conf
     option domain-name
     "?au-team.irpo?";
     option domain-name-servers 192.168.101.254;
@@ -138,9 +202,9 @@ CLI, Internet?
     option routers 192.168.101.12;}
 .
 
-    dhcpd -t -cf /etc/dhcp/dhcpd.conf
-    systemctl enable --now dhcpd
-    systemctl status dhcpd
+    dhcpC -t -cf /etc/dhcp/dhcpC.conf
+    systemctl enable --now dhcpC
+    systemctl status dhcpC
 ![Ð¡Ð½Ð¸Ð¼Ð¾Ðº Ñ_ÐºÑ_Ð°Ð½Ð° Ð¾Ñ_ 2025-05-12 17-55-08](https://github.com/user-attachments/assets/ad8e6b80-f136-4e9b-b757-e37c492e7a41)
 ![image (5)](https://github.com/user-attachments/assets/ee402446-0220-4507-b538-2fe5d7cecc8e)
 ![image (6)](https://github.com/user-attachments/assets/83a7ea0e-423b-475d-80a2-c438aba6360b)
