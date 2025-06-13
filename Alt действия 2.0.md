@@ -83,6 +83,24 @@ Client
      nameserver 8.8.8.8
      search google.com
      search ya.ru
+На всякий случаю vlan999
+
+    mkdir /etc/net/ifaces/vlan999 (gr?/te?)
+    cat <<EOF > /etc/net/ifaces/vlan999  (gr?/te?) /options
+    или vim, mc (i редактировать, :wq выход)
+      NM_CONTROLLED=no
+      DISABLED=no
+      TYPE=ovsport
+      BRIDGE=R1-SW
+      VID=200
+      BOOTPROTO=dhcp
+      SYSTEMD_BOOTPROTO=dhcpC?
+      CONFIG_IPV4=yes
+      SYSTEMD_CONTROLLED=no
+      NM_CONTROLLED=no
+      CONFIG_IPV6=no
+      ONBOOT=yes
+    EOF
 Cams1
 
     mkdir /etc/net/ifaces/Cam1/te3/ge3
