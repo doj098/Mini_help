@@ -92,7 +92,7 @@ Client
       DISABLED=no
       TYPE=ovsport
       BRIDGE=R1-SW
-      VID=200
+      VID=999
       BOOTPROTO=dhcp
       SYSTEMD_BOOTPROTO=dhcpC?
       CONFIG_IPV4=yes
