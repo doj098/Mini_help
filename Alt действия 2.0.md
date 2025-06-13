@@ -11,7 +11,7 @@
 # 2. Настройка Сети
 R1 
 
-Редактор vim, mc (i редактировать, :wq выход)   
+Редактор vim, mc (i редактировать, ESC чтобы выйти из редоктирования, :wq выход)   
 
     ip link
     apt-get update && apt-get install -y openvswitch
