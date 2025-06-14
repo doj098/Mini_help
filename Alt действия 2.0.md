@@ -85,8 +85,8 @@ Client
      search ya.ru
 На всякий случаю vlan999
 
-    mkdir /etc/net/ifaces/vlan999 (gr?/te?)
-    cat <<EOF > /etc/net/ifaces/vlan999  (gr?/te?) /options
+    mkdir /etc/net/ifaces/vl999 (gr?/te?)
+    cat <<EOF > /etc/net/ifaces/vl999  (gr?/te?) /options
     или vim, mc (i редактировать, :wq выход)
       NM_CONTROLLED=no
       DISABLED=no
@@ -101,6 +101,13 @@ Client
       CONFIG_IPV6=no
       ONBOOT=yes
     EOF
+    echo "192.168.101.1/24" > /etc/net/ifaces/vl999  (gr?/te?) /ipv4address
+    echo "default via 192.168.101.??" > /etc/net/ifaces/vl999  (gr?/te?) /ipv4route
+    vim /etc/net/ifaces/vl999 (gr?/te?) /resolv.conf
+     nameserver 8.8.8.8
+     search google.com
+     search ya.ru
+    или vim, mc (i редактировать, :wq выход)
 Cams1
 
     mkdir /etc/net/ifaces/Cam1/te3/ge3
